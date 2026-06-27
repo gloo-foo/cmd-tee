@@ -1,0 +1,48 @@
+# Release configuration for cmd-tee — a Go library exposing the tee Command,
+# not a binary. `goreleaser release` runs on a `v*` tag and publishes a GitHub
+# release with a reproducible source archive, SHA-256 checksums, and a
+# changelog. There are no cross-compiled binaries: nothing here has a `main`.
+version: 2
+
+project_name: cmd-tee
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod verify
+
+# No binaries to build: this module exposes a library API only.
+builds:
+  - skip: true
+
+source:
+  enabled: true
+  name_template: "{{ .ProjectName }}-{{ .Version }}-source"
+
+checksum:
+  name_template: "checksums.txt"
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: Bug Fixes
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: Others
+      order: 999
+
+release:
+  github:
+    owner: gloo-foo
+    name: cmd-tee
