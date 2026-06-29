@@ -7,11 +7,11 @@ import (
 	"slices"
 	"testing"
 
+	gloo "github.com/gloo-foo/framework"
+	"github.com/gloo-foo/testable"
 	"github.com/spf13/afero"
 
 	command "github.com/gloo-foo/cmd-tee"
-	gloo "github.com/gloo-foo/framework"
-	"github.com/gloo-foo/testable"
 )
 
 // readFile returns the bytes written to name on fs, failing the test on error.

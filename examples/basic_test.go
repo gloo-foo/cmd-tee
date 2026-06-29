@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
+	gloo "github.com/gloo-foo/framework"
+	"github.com/gloo-foo/framework/patterns"
 	"github.com/spf13/afero"
 
 	command "github.com/gloo-foo/cmd-tee"
-	gloo "github.com/gloo-foo/framework"
-	"github.com/gloo-foo/framework/patterns"
 )
 
 // ExampleTee_basic shows tee passing input straight through to stdout.

@@ -5,10 +5,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/spf13/afero"
-
 	gloo "github.com/gloo-foo/framework"
 	"github.com/gloo-foo/framework/patterns"
+	"github.com/spf13/afero"
 )
 
 // TeeFs injects the filesystem tee writes named File arguments to. It defaults
@@ -34,10 +33,10 @@ func Tee(opts ...any) gloo.Command[[]byte, []byte] {
 
 // config is the immutable result of classifying Tee's options.
 type config struct {
+	fs      afero.Fs
 	files   []gloo.File
 	writers []io.Writer
 	readers []io.Reader
-	fs      afero.Fs
 	append  teeAppendFlag
 }
 
@@ -141,7 +140,9 @@ func (c config) flags() int {
 // broadcast writes one newline-terminated line to every writer, stopping at the
 // first failure.
 func broadcast(writers []io.Writer, line []byte) error {
-	out := append(line, '\n')
+	out := make([]byte, 0, len(line)+1)
+	out = append(out, line...)
+	out = append(out, '\n')
 	for _, w := range writers {
 		if _, err := w.Write(out); err != nil {
 			return ErrWrite.With(err)
