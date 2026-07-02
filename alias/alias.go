@@ -4,10 +4,16 @@
 //	tee.Tee(gloo.File("out.txt"), tee.Append)
 package alias
 
-import command "github.com/gloo-foo/cmd-tee"
+import (
+	gloo "github.com/gloo-foo/framework"
+
+	command "github.com/gloo-foo/cmd-tee"
+)
 
 // Tee re-exports the constructor.
-var Tee = command.Tee
+func Tee(opts ...any) gloo.Command[[]byte, []byte] {
+	return command.Tee(opts...)
+}
 
 // Append is the -a flag: append to named files instead of truncating.
 const Append = command.TeeAppend

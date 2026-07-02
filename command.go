@@ -33,11 +33,11 @@ func Tee(opts ...any) gloo.Command[[]byte, []byte] {
 
 // config is the immutable result of classifying Tee's options.
 type config struct {
-	fs      afero.Fs
-	files   []gloo.File
-	writers []io.Writer
-	readers []io.Reader
-	append  teeAppendFlag
+	fs            afero.Fs
+	files         []gloo.File
+	writers       []io.Writer
+	readers       []io.Reader
+	appendEnabled teeAppendFlag
 }
 
 // parse classifies opts into a config, defaulting the filesystem to the OS.
@@ -55,7 +55,7 @@ func (c config) with(o any) config {
 	case TeeFs:
 		c.fs = v.Fs
 	case teeAppendFlag:
-		c.append = v
+		c.appendEnabled = v
 	case gloo.File:
 		c.files = append(c.files, v)
 	case io.Writer:
@@ -131,7 +131,7 @@ func (c config) openFile(f gloo.File) (io.Writer, error) {
 // append or truncate.
 func (c config) flags() int {
 	base := os.O_CREATE | os.O_WRONLY
-	if bool(c.append) {
+	if bool(c.appendEnabled) {
 		return base | os.O_APPEND
 	}
 	return base | os.O_TRUNC
