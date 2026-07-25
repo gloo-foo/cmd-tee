@@ -3,9 +3,9 @@ module github.com/gloo-foo/cmd-tee
 go 1.26.4
 
 require (
-	github.com/gloo-foo/framework v0.1.7
-	github.com/gloo-foo/testable v0.1.8
-	github.com/gomatic/go-error v0.3.4
+	github.com/gloo-foo/framework v0.1.9
+	github.com/gloo-foo/testable v0.1.11
+	github.com/gomatic/go-error v0.3.8
 	github.com/spf13/afero v1.15.0
 )
 
