@@ -133,8 +133,8 @@ func TestTee_EmptyInput(t *testing.T) {
 	}
 }
 
-// TestTee_OpenError proves an un-openable destination surfaces ErrOpenFile.
-func TestTee_OpenError(t *testing.T) {
+// TestTee_ErrOpenFile proves an un-openable destination surfaces ErrOpenFile.
+func TestTee_ErrOpenFile(t *testing.T) {
 	fs := afero.NewReadOnlyFs(afero.NewMemMapFs())
 	cmd := command.Tee(gloo.File("nope.txt"), command.TeeFs{Fs: fs})
 
