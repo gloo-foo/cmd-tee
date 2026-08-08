@@ -1,10 +1,6 @@
 # Managed by nicerobot/tools.repository (distribute-build)
 name: actions
 on:
-  # Manually re-runnable. Re-running a PAST run replays its original commit, so
-  # a gate that failed months ago stays red in the UI even after main was fixed —
-  # there was no way to ask "is main green NOW?" without pushing a dummy commit.
-  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
